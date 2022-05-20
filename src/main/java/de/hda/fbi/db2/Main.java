@@ -1,6 +1,7 @@
 package de.hda.fbi.db2;
-
-import de.hda.fbi.db2.controller.Controller;
+import de.hda.fbi.db2.stud.entity.CSVReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main Class.
@@ -15,10 +16,15 @@ public class Main {
    * @param args Command-Line Arguments.
    */
   public static void main(String[] args) {
-    Controller controller = Controller.getInstance();
+   // Controller controller = Controller.getInstance();
+    CSVReader myreader = new CSVReader();
+    List<String[]>test = new ArrayList<>();
+
+
+    myreader.loadCsvFile(test);
 
     //TODO(stud): uncomment for lab01
-    controller.readCsv();
+   // controller.readCsv();
 
     //TODO(stud): uncomment for lab02
     //controller.persistData();
