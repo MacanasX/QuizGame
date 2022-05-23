@@ -1,5 +1,6 @@
 package de.hda.fbi.db2.api;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -33,5 +34,5 @@ public abstract class Lab01Data {
    * @param csvLines CSV lines, each line is a String array consisting of the columns of the line.
    *                 The first line consists of the headers of the CSV columns.
    */
-  public abstract void loadCsvFile(List<String[]> csvLines);
+  public abstract void loadCsvFile(List<String[]> csvLines) throws URISyntaxException;
 }

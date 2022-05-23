@@ -1,5 +1,8 @@
 package de.hda.fbi.db2;
+import de.hda.fbi.db2.controller.CsvDataReader;
 import de.hda.fbi.db2.stud.entity.CSVReader;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +18,12 @@ public class Main {
    *
    * @param args Command-Line Arguments.
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException, URISyntaxException {
    // Controller controller = Controller.getInstance();
     CSVReader myreader = new CSVReader();
     List<String[]>test = new ArrayList<>();
+   // String file =CsvDataReader.getAvailableFiles();
+   // CsvDataReader.read((CsvDataReader.getAvailableFiles());
 
 
     myreader.loadCsvFile(test);
