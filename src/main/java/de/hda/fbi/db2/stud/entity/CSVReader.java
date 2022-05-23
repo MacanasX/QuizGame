@@ -70,18 +70,70 @@ public class CSVReader extends Lab01Data {
 
             }
             */
+
       //get all Categories from List and initialize new Categorie Objects
-
-      String categorieExist;
+    //  String categorieExist;
       String[] column;
+      String categorie;
+      boolean categoryExists;
 
+        for(int i = 1 ; i < csvLines.size(); i++) {
 
-            for(int i = 1 ; i < csvLines.size(); i++) {
-
-              column = csvLines.get(i);
-              String categorie =column[7];
+            column = csvLines.get(i);
+            categorie = column[7];
+            categoryExists = false;
             // System.out.println(column[7]);
 
+            if (myCategories.isEmpty()) {
+                Category category = new Category(myCategories.size() + 1, categorie);
+                myCategories.add(category);
+            }
+
+            if (myCategories.size() > 0) {
+
+                for (int k = 0; k < myCategories.size(); k++) {
+                    System.out.println("akutelle categorie: " + categorie + " und die hinzugefügte Kategorie " + myCategories.get(k).getText());
+
+                    categoryExists = categorie.equals(myCategories.get(k).getText());
+                    if (!categoryExists) { //categorie.equals(myCategories.get(k).getText())
+                        categoryExists = false;
+                    } else {
+                        categoryExists = true;
+                        break;
+                    }
+
+                }
+
+            }
+
+            if (!categoryExists) {
+                Category category2 = new Category(myCategories.size() + 1, categorie);
+                myCategories.add(category2);
+            }
+            System.out.println("size from list: " + myCategories.size());
+        }
+
+        for (int i =0 ; i < myCategories.size(); i++){
+            System.out.println("id:" + myCategories.get(i).getID() + " name: "+ myCategories.get(i).getText());
+        }
+
+
+
+
+
+
+
+
+/*Category category2 = new Category(myCategories.size()+1, categorie);
+                        myCategories.add(category2);
+                        System.out.println("TEST");
+                        break;/*
+
+            }
+
+
+
+            /*
               if(myCategories.isEmpty()) {
                 Category category = new Category(this.myCategories.size()+1, categorie);
                 myCategories.add(category);
@@ -116,13 +168,13 @@ public class CSVReader extends Lab01Data {
                 }
 
               }
-            }
+            } */
      // myCategories.get(0).printData();
      // myCategories.get(1).printData();
      // myCategories.get(2).printData();
      // myCategories.get(3).printData();
 
-      System.out.println("size from list: " + myCategories.size());
+     // System.out.println("size from list: " + myCategories.size());
            /*
             String[] tmp;
             for(int i = 0 ; i < csvLines.size(); i++)
@@ -183,4 +235,5 @@ public class CSVReader extends Lab01Data {
 
  */
 
-    }}
+    }
+}
