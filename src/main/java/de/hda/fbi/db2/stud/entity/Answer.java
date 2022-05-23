@@ -6,36 +6,38 @@ import javax.persistence.Entity;
 public class Answer {
 
 
-    private String text;
-    private Boolean isCorrectAnswer;
+  private String text;
+  private Boolean isCorrectAnswer;
 
 
-    public Boolean getCorrectAnswer() {
-        return isCorrectAnswer;
-    }
+  public Boolean getCorrectAnswer() {
+    return isCorrectAnswer;
+  }
 
-    public void setCorrectAnswer(Boolean correctAnswer) {
-        isCorrectAnswer = correctAnswer;
-    }
+  public void setCorrectAnswer(Boolean correctAnswer) {
+    isCorrectAnswer = correctAnswer;
+  }
 
 
-    public String getText() {
-        return text;
-    }
+  public String getText() {
+    return text;
+  }
 
-    public void setText(String text) {
-        this.text = text;
-    }
+  public void setText(String text) {
+    this.text = text;
+  }
 
-    Answer(String text){
-        this.text = text;
-        this.isCorrectAnswer=false;
-    }
-    public void printData(){
+  public Answer(String text) {
+    this.text = text;
+    this.isCorrectAnswer = false;
+  }
 
-        System.out.println("Mein text: "+this.text + " Antwort korrekt: " + this.isCorrectAnswer);
+  public void printData() {
 
-    }
+    System.out.println(
+        "Mein text: " + this.text + " Antwort korrekt: " + this.isCorrectAnswer + "\n");
+
+  }
 
 
 }
