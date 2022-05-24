@@ -10,6 +10,15 @@ public class Question {
   private Category category;
   private ArrayList<Answer> myAnswerList;
 
+  /** Constructor of the class Question.
+   *
+   *
+   * @param id unique id for every question-object
+   * @param text string which is holding the question of the object
+   * @param category reference to the matching category
+   *
+   */
+
   public Question(Integer id, String text, Category category) {
     this.id = id;
     this.text = text;
@@ -50,17 +59,7 @@ public class Question {
     this.myAnswerList = myAnswerList;
   }
 
-  public void printData() {
 
-    System.out.println(
-        "Meine ID: " + this.id + " , Mein Text: " + this.text + " , Meine Kategorie: "
-            + this.category);
-    for (int i = 0; i < this.myAnswerList.size(); i++) {
-      myAnswerList.get(i).printData();
-
-    }
-
-  }
 
 
 }

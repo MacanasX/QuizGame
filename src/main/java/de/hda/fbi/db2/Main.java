@@ -20,12 +20,7 @@ public class Main {
    */
   public static void main(String[] args) throws IOException, URISyntaxException {
     Controller controller = Controller.getInstance();
-    // CSVReader myreader = new CSVReader();
-    // List<String[]>test = new ArrayList<>();
-    // String file =CsvDataReader.getAvailableFiles();
-    // CsvDataReader.read((CsvDataReader.getAvailableFiles());
 
-    //myreader.loadCsvFile(test);
 
     //TODO(stud): uncomment for lab01
     controller.readCsv();

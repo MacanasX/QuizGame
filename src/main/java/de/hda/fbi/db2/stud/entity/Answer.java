@@ -32,12 +32,7 @@ public class Answer {
     this.isCorrectAnswer = false;
   }
 
-  public void printData() {
 
-    System.out.println(
-        "Mein text: " + this.text + " Antwort korrekt: " + this.isCorrectAnswer + "\n");
-
-  }
 
 
 }

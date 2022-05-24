@@ -9,6 +9,12 @@ public class Category {
   private String text;
   private ArrayList<Question> questionList;
 
+  /** Constructor of the class Category.
+   *
+   * @param id unique id for every question-category
+   * @param text string which holds the category of the object
+   */
+
   public Category(Integer id, String text) {
     this.id = id;
     this.text = text;
@@ -41,15 +47,7 @@ public class Category {
     this.questionList = questionList;
   }
 
-  public void printData() {
 
-    System.out.println("Meine ID: " + this.id + " , Mein Text: " + this.text);
-    for (int i = 0; i < this.questionList.size(); i++) {
-      questionList.get(i).printData();
-
-    }
-
-  }
 
 
 }
