@@ -104,8 +104,7 @@ public class CsvReader extends Lab01Data {
       for (int j = 0; j < myCategories.size(); j++) {
         if (category.equals(myCategories.get(j).getText())) {
 
-          Question question = new Question(myQuestions.size() + 1, frage, myCategories.get(j));
-
+          Question question = new Question(Integer.parseInt(column[0]),frage, myCategories.get(j));
           question.setMyAnswerList(myAnswers);
           myQuestions.add(question);
           myCategories.get(j).getQuestionList().add(question);
