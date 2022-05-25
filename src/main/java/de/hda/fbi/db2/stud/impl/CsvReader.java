@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-
+//reads the CSV FILE
 public class CsvReader extends Lab01Data {
 
   private List<Category> myCategories = new ArrayList<>();
