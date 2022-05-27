@@ -10,6 +10,11 @@ public class Answer {
   private Boolean isCorrectAnswer;
 
 
+  public Answer(String text) {
+    this.text = text;
+    this.isCorrectAnswer = false;
+  }
+
   public Boolean getCorrectAnswer() {
     return isCorrectAnswer;
   }
@@ -18,7 +23,6 @@ public class Answer {
     isCorrectAnswer = correctAnswer;
   }
 
-
   public String getText() {
     return text;
   }
@@ -26,13 +30,6 @@ public class Answer {
   public void setText(String text) {
     this.text = text;
   }
-
-  public Answer(String text) {
-    this.text = text;
-    this.isCorrectAnswer = false;
-  }
-
-
 
 
 }
