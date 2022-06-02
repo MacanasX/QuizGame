@@ -1,0 +1,28 @@
+
+class Category
+	@Entity
+	@Table(name = "Category", schema = "Game")
+	
+	@Id 
+	@Column
+
+	@OneToMany (mappedBy = "category")
+
+
+class Question
+	@Entity
+	@Table(name = "Category", schema = "Game")
+
+	@Id
+	@Column
+
+	@ManyToOne
+	@oneToMany (mappedBy = "question")
+
+
+class Answer
+	@Entity
+	@Table(name = "Answer", schema = "Game")
+
+	@Column
+	
