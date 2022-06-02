@@ -3,8 +3,9 @@ class Category
 	@Entity
 	@Table(name = "Category", schema = "Game")
 	
-	@Id 
-	@Column
+	@Id
+	@GeneratedValue
+	@Column (unique = true)
 
 	@OneToMany (mappedBy = "category")
 
@@ -17,11 +18,11 @@ class Question
 	@Column
 
 	@ManyToOne
-	@oneToMany (mappedBy = "question")
+	@ElementCollection
 
 
 class Answer
-	@Entity
+	@Embeddable
 	@Table(name = "Answer", schema = "Game")
 
 	@Column
