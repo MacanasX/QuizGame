@@ -1,12 +1,25 @@
 package de.hda.fbi.db2.stud.entity;
 
 import java.util.ArrayList;
+import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-
+@Entity
+@Table
 public class Category {
-
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
-  private String text;
+  @Column (unique = true)
+  private String name;
+
+  @OneToMany(mappedBy = "category")
   private ArrayList<Question> questionList;
 
   /** Constructor of the class Category.
@@ -17,8 +30,12 @@ public class Category {
 
   public Category(Integer id, String text) {
     this.id = id;
-    this.text = text;
+    this.name = text;
     questionList = new ArrayList<>();
+
+  }
+
+  public Category() {
 
   }
 
@@ -31,12 +48,12 @@ public class Category {
     this.id = id;
   }
 
-  public String getText() {
-    return text;
+  public String getName() {
+    return name;
   }
 
-  public void setText(String text) {
-    this.text = text;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public ArrayList<Question> getQuestionList() {
@@ -47,7 +64,21 @@ public class Category {
     this.questionList = questionList;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Category category = (Category) o;
+    return Objects.equals(id, category.id) && Objects.equals(name, category.name)
+        && Objects.equals(questionList, category.questionList);
+  }
 
-
-
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, questionList);
+  }
 }

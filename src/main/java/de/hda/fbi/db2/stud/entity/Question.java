@@ -1,13 +1,25 @@
 package de.hda.fbi.db2.stud.entity;
 
 import java.util.ArrayList;
+import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-
+@Entity
+@Table
 public class Question {
 
+  @Id
   private Integer id;
+  @Column
   private String text;
+  @ManyToOne
   private Category category;
+  @ElementCollection
   private ArrayList<Answer> myAnswerList;
 
   /** Constructor of the class Question.
@@ -24,6 +36,10 @@ public class Question {
     this.text = text;
     this.category = category;
     this.myAnswerList = null;
+
+  }
+
+  public Question() {
 
   }
 
@@ -59,7 +75,22 @@ public class Question {
     this.myAnswerList = myAnswerList;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Question question = (Question) o;
+    return Objects.equals(id, question.id) && Objects.equals(text, question.text)
+        && Objects.equals(category, question.category) && Objects.equals(
+        myAnswerList, question.myAnswerList);
+  }
 
-
-
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, text, category, myAnswerList);
+  }
 }

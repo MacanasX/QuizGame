@@ -4,16 +4,19 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
 
-    <persistence-unit name="default-postgresPU" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="default-postgresPU" transaction-type="RESOURCE_LOCAL" >
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <!-- put your entity-classes here -->
+        <class>de.hda.fbi.db2.stud.entity.Category</class>
+        <class>de.hda.fbi.db2.stud.entity.Answer</class>
+        <class>de.hda.fbi.db2.stud.entity.Question</class>
 
         <!-- this must be provided -->
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/dbadmin" />
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-            <property name="javax.persistence.jdbc.user" value="user" />
-            <property name="javax.persistence.jdbc.password" value="password" />
+            <property name="javax.persistence.jdbc.user" value="dbadmin" />
+            <property name="javax.persistence.jdbc.password" value="dbadminpassword" />
 
             <!--<property name="javax.persistence.schema-generation.database.action" value="none"/>-->
             <!--<property name="javax.persistence.schema-generation.database.action" value="create"/>-->

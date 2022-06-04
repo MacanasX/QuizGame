@@ -17,12 +17,12 @@ public class CsvReader extends Lab01Data {
 
 
   @Override
-  public List<?> getQuestions() {
+  public List<Question> getQuestions() {
     return myQuestions;
   }
 
   @Override
-  public List<?> getCategories() {
+  public List<Category> getCategories() {
     return myCategories;
   }
 
@@ -64,7 +64,7 @@ public class CsvReader extends Lab01Data {
 
         for (int k = 0; k < myCategories.size(); k++) {
 
-          categoryExists = categorie.equals(myCategories.get(k).getText());
+          categoryExists = categorie.equals(myCategories.get(k).getName());
           if (!categoryExists) { //categorie.equals(myCategories.get(k).getText())
             categoryExists = false;
           } else {
@@ -102,7 +102,7 @@ public class CsvReader extends Lab01Data {
       }
 
       for (int j = 0; j < myCategories.size(); j++) {
-        if (category.equals(myCategories.get(j).getText())) {
+        if (category.equals(myCategories.get(j).getName())) {
 
           Question question = new Question(Integer.parseInt(column[0]),frage, myCategories.get(j));
           question.setMyAnswerList(myAnswers);

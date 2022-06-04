@@ -23,10 +23,10 @@ public class Main {
 
 
     //TODO(stud): uncomment for lab01
-    controller.readCsv();
+   // controller.readCsv();
 
     //TODO(stud): uncomment for lab02
-    //controller.persistData();
+    controller.persistData();
 
     //TODO(stud): uncomment for lab03, lab04 and lab05
     //controller.startMenu();
