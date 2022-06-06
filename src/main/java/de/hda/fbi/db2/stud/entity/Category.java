@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table
 public class Category {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Integer id;
   @Column (unique = true)
   private String name;
@@ -79,6 +79,6 @@ public class Category {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, questionList);
+    return Objects.hashCode(getID());
   }
 }

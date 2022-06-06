@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 
-
 /**
  * Main Class.
  *
@@ -21,9 +20,8 @@ public class Main {
   public static void main(String[] args) throws IOException, URISyntaxException {
     Controller controller = Controller.getInstance();
 
-
     //TODO(stud): uncomment for lab01
-   // controller.readCsv();
+    // controller.readCsv();
 
     //TODO(stud): uncomment for lab02
     controller.persistData();

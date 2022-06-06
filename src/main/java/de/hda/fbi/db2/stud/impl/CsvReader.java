@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+
 //READS THE CSV FILE
 public class CsvReader extends Lab01Data {
 
@@ -104,7 +105,7 @@ public class CsvReader extends Lab01Data {
       for (int j = 0; j < myCategories.size(); j++) {
         if (category.equals(myCategories.get(j).getName())) {
 
-          Question question = new Question(Integer.parseInt(column[0]),frage, myCategories.get(j));
+          Question question = new Question(Integer.parseInt(column[0]), frage, myCategories.get(j));
           question.setMyAnswerList(myAnswers);
           myQuestions.add(question);
           myCategories.get(j).getQuestionList().add(question);

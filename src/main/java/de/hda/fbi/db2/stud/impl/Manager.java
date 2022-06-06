@@ -11,25 +11,26 @@ import javax.persistence.Persistence;
 
 public class Manager extends Lab02EntityManager {
 
-  private EntityManagerFactory emf = Persistence.createEntityManagerFactory("default-postgresPU");;
+  private EntityManagerFactory emf;
 
   private EntityManager em;
 
   @Override
   public void init() {
-
+    emf = Persistence.createEntityManagerFactory("default-postgresPU");
   }
 
   @Override
   public void destroy() {
-
+    emf.close();
+    em.close();
   }
 
   @Override
   public void persistData() {
     List<String[]> csvLines = null;
     CsvReader reader = new CsvReader();
-    reader.loadCsvFile(csvLines) ;
+    reader.loadCsvFile(csvLines);
     List<Category> categories = new ArrayList<>();
     List<Question> questions = new ArrayList<>();
     categories = reader.getCategories();
@@ -38,21 +39,19 @@ public class Manager extends Lab02EntityManager {
 
 
     myEM.getTransaction().begin();
-    for(int i = 0 ; i < categories.size() ; i++)
-    {
+    for (Category category : categories) {
 
-      myEM.persist(categories.get(i));
+      myEM.persist(category);
 
-      for(int j = 0 ; j < questions.size() ; j++)
-      {
+      for (Question question : questions) {
 
-        myEM.persist(questions.get(j));
+        myEM.persist(question);
 
       }
 
 
-
-    } myEM.getTransaction().commit();
+    }
+    myEM.getTransaction().commit();
 
 
 

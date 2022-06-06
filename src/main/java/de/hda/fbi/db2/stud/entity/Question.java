@@ -2,11 +2,13 @@ package de.hda.fbi.db2.stud.entity;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +22,7 @@ public class Question {
   @ManyToOne
   private Category category;
   @ElementCollection
+  @CollectionTable(name = "answers")
   private ArrayList<Answer> myAnswerList;
 
   /** Constructor of the class Question.
@@ -91,6 +94,7 @@ public class Question {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, text, category, myAnswerList);
+    return Objects.hashCode(getID());
   }
+
 }
