@@ -13,7 +13,7 @@
 
         <!-- this must be provided -->
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/dbadmin" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/postgres" />
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
             <property name="javax.persistence.jdbc.user" value="dbadmin" />
             <property name="javax.persistence.jdbc.password" value="dbadminpassword" />
