@@ -57,7 +57,7 @@ public class CsvReader extends Lab01Data {
       // System.out.println(column[7]);
 
       if (myCategories.isEmpty()) {
-        Category category = new Category(myCategories.size() + 1, categorie);
+        Category category = new Category(categorie);
         myCategories.add(category);
       }
 
@@ -77,7 +77,7 @@ public class CsvReader extends Lab01Data {
 
       }
       if (!categoryExists) {
-        Category category2 = new Category(myCategories.size() + 1, categorie);
+        Category category2 = new Category(categorie);
         myCategories.add(category2);
       }
 

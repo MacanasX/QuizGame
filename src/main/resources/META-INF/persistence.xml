@@ -12,11 +12,12 @@
         <class>de.hda.fbi.db2.stud.entity.Question</class>
 
         <!-- this must be provided -->
+        <!-- "jdbc:postgresql://localhost/postgres" -->
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/postgres" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://postgres.fbi.h-da.de:5432/stlagros" />
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-            <property name="javax.persistence.jdbc.user" value="dbadmin" />
-            <property name="javax.persistence.jdbc.password" value="dbadminpassword" />
+            <property name="javax.persistence.jdbc.user" value="user@domain.com" />
+            <property name="javax.persistence.jdbc.password" value="secretpassword" />
 
             <!--<property name="javax.persistence.schema-generation.database.action" value="none"/>-->
             <!--<property name="javax.persistence.schema-generation.database.action" value="create"/>-->
@@ -34,14 +35,16 @@
     <persistence-unit name="fbi-postgresPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <!-- put your entity-classes here -->
-
+        <class>de.hda.fbi.db2.stud.entity.Category</class>
+        <class>de.hda.fbi.db2.stud.entity.Answer</class>
+        <class>de.hda.fbi.db2.stud.entity.Question</class>
         <!-- this must be provided -->
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://postgres.fbi.h-da.de:5432/st*-account" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://postgres.fbi.h-da.de:5432/stlagros" />
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
             <!-- Please use a functional user as described here:  https://code.fbi.h-da.de/lab-docs/db/-/wikis/postgresql/Teams-im-Praktikum -->
-            <property name="javax.persistence.jdbc.user" value="username" />
-            <property name="javax.persistence.jdbc.password" value="password" />
+            <property name="javax.persistence.jdbc.user" value="foo2" />
+            <property name="javax.persistence.jdbc.password" value="123" />
 
             <!--<property name="javax.persistence.schema-generation.database.action" value="none"/>-->
             <!--<property name="javax.persistence.schema-generation.database.action" value="create"/>-->

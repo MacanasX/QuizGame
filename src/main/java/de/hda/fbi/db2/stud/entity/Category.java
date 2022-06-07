@@ -2,20 +2,25 @@ package de.hda.fbi.db2.stud.entity;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.sound.midi.Sequence;
 
 @Entity
-@Table
+@Table (name = "Category")
 public class Category {
+
+
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  private Integer id;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private long id;
   @Column (unique = true)
   private String name;
 
@@ -24,12 +29,10 @@ public class Category {
 
   /** Constructor of the class Category.
    *
-   * @param id unique id for every question-category
    * @param text string which holds the category of the object
    */
 
-  public Category(Integer id, String text) {
-    this.id = id;
+  public Category(String text) {
     this.name = text;
     questionList = new ArrayList<>();
 
@@ -40,11 +43,11 @@ public class Category {
   }
 
 
-  public Integer getID() {
+  public long getID() {
     return id;
   }
 
-  public void setID(Integer id) {
+  public void setID(long id) {
     this.id = id;
   }
 

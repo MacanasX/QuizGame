@@ -7,31 +7,33 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table (name = "Question")
 public class Question {
 
   @Id
   private Integer id;
   @Column
   private String text;
+
   @ManyToOne
   private Category category;
+
   @ElementCollection
-  @CollectionTable(name = "answers")
+  @CollectionTable(name = "Answers")
   private ArrayList<Answer> myAnswerList;
 
-  /** Constructor of the class Question.
+  /**
+   * Constructor of the class Question.
    *
-   *
-   * @param id unique id for every question-object
-   * @param text string which is holding the question of the object
+   * @param id       unique id for every question-object
+   * @param text     string which is holding the question of the object
    * @param category reference to the matching category
-   *
    */
 
   public Question(Integer id, String text, Category category) {
@@ -77,6 +79,7 @@ public class Question {
   public void setMyAnswerList(ArrayList<Answer> myAnswerList) {
     this.myAnswerList = myAnswerList;
   }
+
 
   @Override
   public boolean equals(Object o) {

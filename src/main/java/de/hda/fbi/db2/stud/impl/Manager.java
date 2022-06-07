@@ -7,63 +7,56 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 public class Manager extends Lab02EntityManager {
 
   private EntityManagerFactory emf;
 
-  private EntityManager em;
-
   @Override
   public void init() {
-    emf = Persistence.createEntityManagerFactory("default-postgresPU");
+    emf = Persistence.createEntityManagerFactory("fbi-postgresPU");
   }
 
   @Override
   public void destroy() {
     emf.close();
-    em.close();
+
   }
 
   @Override
   public void persistData() {
+    System.out.println("AUFGERUFEN!");
     List<String[]> csvLines = null;
     CsvReader reader = new CsvReader();
     reader.loadCsvFile(csvLines);
-    List<Category> categories = new ArrayList<>();
-    List<Question> questions = new ArrayList<>();
-    categories = reader.getCategories();
-    questions = reader.getQuestions();
+    List<Category> categories = reader.getCategories();
+    List<Question> questions = reader.getQuestions();
+
     EntityManager myEM = getEntityManager();
-
-
     myEM.getTransaction().begin();
     for (Category category : categories) {
 
       myEM.persist(category);
-
       for (Question question : questions) {
 
         myEM.persist(question);
+
 
       }
 
 
     }
+
     myEM.getTransaction().commit();
-
-
 
 
   }
 
   @Override
-  public javax.persistence.EntityManager getEntityManager() {
+  public EntityManager getEntityManager() {
 
-    em = emf.createEntityManager();
-
-
-    return em;
+    return emf.createEntityManager();
   }
 }

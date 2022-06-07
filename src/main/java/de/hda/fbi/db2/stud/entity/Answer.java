@@ -57,4 +57,6 @@ public class Answer {
   public int hashCode() {
     return Objects.hash(text, isCorrectAnswer);
   }
+
+
 }
