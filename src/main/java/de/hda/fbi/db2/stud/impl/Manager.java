@@ -39,19 +39,18 @@ public class Manager extends Lab02EntityManager {
     for (Category category : categories) {
 
       myEM.persist(category);
-      for (Question question : questions) {
 
-        myEM.persist(question);
+    }
+    for (Question question : questions) {
 
-
-      }
+      myEM.persist(question);
 
 
     }
 
     myEM.getTransaction().commit();
 
-
+    myEM.close();
   }
 
   @Override

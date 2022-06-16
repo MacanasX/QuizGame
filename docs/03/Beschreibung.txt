@@ -1,0 +1,31 @@
+Szenariobeschreibung zu "Wissenstest spielen"
+
+Ein Spieler öffnet das Spiel Wissenstest. Als erstes muss er seinen Namen angeben und wählt anschließend eine
+beliebige Anzahl an Kategorien aus, jedoch mindestens 2. Die Anzahl der Fragen zu einer Kategorie wird zufällig bestimmt. 
+Die generierte Anzahl ist für alle Kategorien gleich. 
+Dann beginnt das Spiel auch schon. Dem Spieler werden die Fragen aus der Datenbank nacheinander ausgegeben und
+er muss eine der 4 Antwortmöglichkeiten mithilfe der Tasten "a, b, c, d" wählen. Der Spieler bekommt direkt im Anschluss
+Auskunft über die richtige Antwort. Wenn alle Fragen durch sind, wird ihm sein Highscore angezeigt und das Spiel
+schließt sich im Anschluss.
+
+Von jedem Spiel wird folgendes gespeichert: 
+
+- Name
+- Timestamp Start, Timestamp Ende
+- Liste der Kategorien, Liste der Fragen und ausgewählte Antworten
+
+Vor dem Spiel:
+
+	- Name eingeben
+	- Kategorien wählen (2 - n)
+	
+Spiel:
+	- Frage mit 4 Antwortmöglichkeiten wird angezeigt
+	- Spieler wählt mit Tasten "a", "b", "c", "d" seine Antwort
+	- Spieler bekommt direkt im Anschluss Auskunft über die richtige Antwort
+	- nächste Frage...
+	
+Nach dem Spiel:
+
+	- Highscore wird angezeigt
+	- Spiel beenden

@@ -1,0 +1,36 @@
+class Game:
+  	
+	@Entity
+	@Table
+	
+	@Id
+	@GeneratedValue	
+
+	@Column
+
+	@Column
+
+	@Column	
+
+	@ManyToMany
+
+	@ManyToMany
+
+	@ManyToMany
+
+	@ManytoOne
+
+	@Column
+
+
+class Player:
+	@Entity
+	@Table
+	
+	@Id
+	@GeneratedValue
+
+	@Column(unique=true)
+
+	@OneToMany(mappedBy = "player")
+	
