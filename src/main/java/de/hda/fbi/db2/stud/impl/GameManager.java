@@ -19,10 +19,9 @@ public class GameManager extends Lab03Game {
   public Object getOrCreatePlayer(String playerName) {
 
     EntityManager em = lab02EntityManager.getEntityManager();
-    Player result = (Player) em.createNamedQuery("Player.findByName").setParameter("name",playerName)
-        .setHint("eclipselink.query-results-cache", true).getSingleResult();
+    Player result = (Player) em.createNamedQuery("Player.findByName").setParameter("name",playerName).getSingleResult();
 
-
+    em.close();
     if (result != null)
       return result;
     else {
@@ -44,7 +43,7 @@ public class GameManager extends Lab03Game {
 
     Player result = (Player) em.createQuery(
         "select m from Player m where m.playerName= :username").getSingleResult();
-
+    em.close();
     if (result != null) {
       System.out.println("Welcome Back " + username + "!");
       return result;
