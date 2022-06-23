@@ -3,6 +3,7 @@ package de.hda.fbi.db2.stud.impl;
 import de.hda.fbi.db2.api.Lab02EntityManager;
 import de.hda.fbi.db2.api.Lab03Game;
 import de.hda.fbi.db2.stud.entity.*;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +16,8 @@ import javax.persistence.NoResultException;
 
 public class GameManager extends Lab03Game {
 
+  private Random rand = new Random();
+  private Scanner sc = new Scanner(System.in, StandardCharsets.UTF_8);
 
   @Override
   public Object getOrCreatePlayer(String playerName) {
@@ -47,7 +50,7 @@ public class GameManager extends Lab03Game {
   @Override
   public Object interactiveGetOrCreatePlayer() {
     EntityManager em = lab02EntityManager.getEntityManager();
-    Scanner sc = new Scanner(System.in);
+
 
     System.out.println("Please enter your playername: ");
     String username = sc.nextLine();
@@ -56,6 +59,7 @@ public class GameManager extends Lab03Game {
     Player result = (Player) em.createQuery(
             "select m from Player m where m.playerName= :username").setParameter("username", username)
         .getSingleResult();
+    System.out.println("Result: "+ result);
     return result;
 
   }
@@ -80,7 +84,7 @@ public class GameManager extends Lab03Game {
 
     for (int i = 0; i < categories.size(); i++) {
       Category category = (Category) categories.get(i);
-      Random rand = new Random();
+
       int random;
 
       if (category.getQuestionList().size() > amountOfQuestionsForCategory) {
@@ -106,16 +110,19 @@ public class GameManager extends Lab03Game {
   @Override
   public List<?> interactiveGetQuestions() {
 
-    Scanner sc = new Scanner(System.in, "UTF-8");
+
     List<Object> mycategories = new ArrayList<>();
 
-    List resultL = lab02EntityManager.getEntityManager().createQuery("select c from Category c order by c.id").getResultList();
+
+    List resultL = lab02EntityManager.getEntityManager().createQuery("select c from Category  c order by c.id").getResultList();
+    System.out.println("Größe :" + resultL.size());
     List<Category> categories = new ArrayList<>();
+
 
     for(Iterator i = resultL.iterator();i.hasNext();){
       categories.add((Category) i.next());
     }
-
+    System.out.println("Größe :" + categories.size());
     for (int i = 0; i < categories.size(); i++){
       System.out.println(categories.get(i).getID()+" "+categories.get(i).getName());
     }
@@ -170,13 +177,15 @@ public class GameManager extends Lab03Game {
     Game g = (Game) game;
     Date start = new Date();
     g.setTimestamp_start(start);
-
+    int low = 1;
+    int high = 4;
 
     for(int i = 0 ; i < g.getPlayedQuestions().size() ; i++){
 
         Question currentQuestion = g.getPlayedQuestions().get(i);
-          int random = (int) (Math.random()*4)+1;
-        Answer givenAnswer = currentQuestion.getMyAnswerList().get(random-1);
+
+         // int random = (int) (Math.random()*4)+1;
+        Answer givenAnswer = currentQuestion.getMyAnswerList().get(rand.nextInt(4));
 
         if(givenAnswer.getCorrectAnswer()){
 
@@ -196,7 +205,6 @@ public class GameManager extends Lab03Game {
   @Override
   public void interactivePlayGame(Object game) {
 
-    Scanner sc = new Scanner(System.in, "UTF-8");
     Game g = (Game) game;
     Date start = new Date();
     g.setTimestamp_start(start);

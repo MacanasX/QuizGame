@@ -51,7 +51,7 @@
 
             <!--<property name="javax.persistence.schema-generation.database.action" value="none"/>-->
             <!--<property name="javax.persistence.schema-generation.database.action" value="create"/>-->
-            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="javax.persistence.schema-generation.database.action" value="none"/>
 
             <property name="eclipselink.logging.level" value="WARNING"/>
             <property name="eclipselink.logging.exceptions" value="false"/>
