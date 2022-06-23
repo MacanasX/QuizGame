@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 public class GameManager extends Lab03Game {
 
@@ -18,18 +19,28 @@ public class GameManager extends Lab03Game {
   @Override
   public Object getOrCreatePlayer(String playerName) {
 
-    EntityManager em = lab02EntityManager.getEntityManager();
-    Player result = (Player) em.createNamedQuery("Player.findByName").setParameter("name",playerName).getSingleResult();
+    ;
+  //  Player result = (Player) lab02EntityManager.getEntityManager().createNamedQuery("player.findByName").
+   //     setParameter("playername",playerName).getSingleResult();
+    try {
+      Player result = (Player) lab02EntityManager.getEntityManager().createQuery(
+              "select m from Player m where m.playerName= :username").setParameter("username", playerName)
+          .getSingleResult();
+      return result;
 
-    em.close();
-    if (result != null)
+    }
+    catch (NoResultException e){
+      return new Player(playerName);
+
+    }
+   /* if (result != null)
       return result;
     else {
 
       Player player = new Player(playerName);
       return player;
     }
-
+  */
 
   }
 
@@ -40,18 +51,26 @@ public class GameManager extends Lab03Game {
 
     System.out.println("Please enter your playername: ");
     String username = sc.nextLine();
-
+    System.out.println("Username:" + username);
+  try {
     Player result = (Player) em.createQuery(
-        "select m from Player m where m.playerName= :username").getSingleResult();
-    em.close();
-    if (result != null) {
-      System.out.println("Welcome Back " + username + "!");
-      return result;
-    } else {
-      System.out.println("New Player got created!");
-      return new Player(username);
-    }
+            "select m from Player m where m.playerName= :username").setParameter("username", username)
+        .getSingleResult();
+    return result;
 
+  }
+  catch (NoResultException e){
+    return new Player(username);
+
+  }
+  /*  if (result != null) {
+      System.out.println("Welcome Back " + username + "!");
+
+    } else {
+       System.out.println("New Player got created!");
+
+    }
+    */
   }
 
   @Override
@@ -151,12 +170,12 @@ public class GameManager extends Lab03Game {
     Game g = (Game) game;
     Date start = new Date();
     g.setTimestamp_start(start);
-    int random;
+
 
     for(int i = 0 ; i < g.getPlayedQuestions().size() ; i++){
 
         Question currentQuestion = g.getPlayedQuestions().get(i);
-         random = (int) (Math.random()*4)+1;
+          int random = (int) (Math.random()*4)+1;
         Answer givenAnswer = currentQuestion.getMyAnswerList().get(random-1);
 
         if(givenAnswer.getCorrectAnswer()){
@@ -218,7 +237,7 @@ public class GameManager extends Lab03Game {
   @Override
   public void persistGame(Object game) {
 
-    EntityManager em = this.lab02EntityManager.getEntityManager();
+    EntityManager em = lab02EntityManager.getEntityManager();
     em.getTransaction().begin();
 
     Game g = (Game) game;

@@ -1,6 +1,7 @@
 package de.hda.fbi.db2.stud.entity;
 
 import java.util.ArrayList;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,18 +11,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table (name = "player")
+@Table (name = "Player")
 @NamedQueries({
-    @NamedQuery(name ="Player.findByName",
-                query = "SELECT m FROM Player m WHERE m.playerName=:name")})
+    @NamedQuery(name ="player.findByName",
+                query = "SELECT m FROM Player m WHERE m.playerName=:playername")})
 
 public class Player {
 
 
   @Id
-  @Column(unique = true)
   private String playerName;
-  @OneToMany(mappedBy = "player")
+  @OneToMany(mappedBy = "player",cascade = CascadeType.PERSIST)
   private ArrayList<Game> playedGames;
 
   public Player(String playerName){

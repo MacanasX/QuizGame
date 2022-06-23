@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -33,14 +34,15 @@ public class Game {
   @ManyToMany
   private ArrayList<Question> playedQuestions;
   @ElementCollection
-  private HashMap<Question,Boolean> givenAnswers;
+  private Map<Question,Boolean> givenAnswers;
   @ManyToOne
   private Player player;
 
   public Game(Player player , ArrayList<Question> playedQuestions){
     this.player = player;
     this.playedQuestions = playedQuestions;
-
+    this.givenAnswers = new HashMap<>();
+    this.playedQuestions = new ArrayList<>();
   }
 
   public Game() {
@@ -97,12 +99,12 @@ public class Game {
     this.playedQuestions = playedQuestions;
   }
 
-  public HashMap<Question, Boolean> getGivenAnswers() {
+  public Map<Question, Boolean> getGivenAnswers() {
     return givenAnswers;
   }
 
   public void setGivenAnswers(
-      HashMap<Question, Boolean> givenAnswers) {
+    Map<Question, Boolean> givenAnswers) {
     this.givenAnswers = givenAnswers;
   }
 
