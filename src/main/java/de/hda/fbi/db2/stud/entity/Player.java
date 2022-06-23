@@ -21,7 +21,7 @@ public class Player {
 
   @Id
   private String playerName;
-  @OneToMany(mappedBy = "player",cascade = CascadeType.PERSIST)
+  @OneToMany(mappedBy = "player")
   private ArrayList<Game> playedGames;
 
   public Player(String playerName){

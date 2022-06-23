@@ -23,16 +23,16 @@ public class GameManager extends Lab03Game {
   public Object getOrCreatePlayer(String playerName) {
 
     ;
-  //  Player result = (Player) lab02EntityManager.getEntityManager().createNamedQuery("player.findByName").
-   //     setParameter("playername",playerName).getSingleResult();
+    //  Player result = (Player) lab02EntityManager.getEntityManager().createNamedQuery("player.findByName").
+    //     setParameter("playername",playerName).getSingleResult();
     try {
       Player result = (Player) lab02EntityManager.getEntityManager().createQuery(
-              "select m from Player m where m.playerName= :username").setParameter("username", playerName)
+              "select m from Player m where m.playerName= :username")
+          .setParameter("username", playerName)
           .getSingleResult();
       return result;
 
-    }
-    catch (NoResultException e){
+    } catch (NoResultException e) {
       return new Player(playerName);
 
     }
@@ -51,22 +51,20 @@ public class GameManager extends Lab03Game {
   public Object interactiveGetOrCreatePlayer() {
     EntityManager em = lab02EntityManager.getEntityManager();
 
-
     System.out.println("Please enter your playername: ");
     String username = sc.nextLine();
     System.out.println("Username:" + username);
-  try {
-    Player result = (Player) em.createQuery(
-            "select m from Player m where m.playerName= :username").setParameter("username", username)
-        .getSingleResult();
-    System.out.println("Result: "+ result);
-    return result;
+    try {
+      Player result = (Player) em.createQuery(
+              "select m from Player m where m.playerName= :username").setParameter("username", username)
+          .getSingleResult();
+      System.out.println("Result: " + result);
+      return result;
 
-  }
-  catch (NoResultException e){
-    return new Player(username);
+    } catch (NoResultException e) {
+      return new Player(username);
 
-  }
+    }
   /*  if (result != null) {
       System.out.println("Welcome Back " + username + "!");
 
@@ -93,13 +91,12 @@ public class GameManager extends Lab03Game {
           random = rand.nextInt(((category.getQuestionList().size() - 1)));
           myQuestion.add(category.getQuestionList().get(random));
 
-        }}
-        else{
-          for (int j = 0; j < category.getQuestionList().size(); j++) {
-            myQuestion.add(category.getQuestionList().get(j));
-          }
         }
-
+      } else {
+        for (int j = 0; j < category.getQuestionList().size(); j++) {
+          myQuestion.add(category.getQuestionList().get(j));
+        }
+      }
 
 
     }
@@ -110,65 +107,64 @@ public class GameManager extends Lab03Game {
   @Override
   public List<?> interactiveGetQuestions() {
 
+    List<Category> mycategories = new ArrayList<>();
 
-    List<Object> mycategories = new ArrayList<>();
-
-
-    List resultL = lab02EntityManager.getEntityManager().createQuery("select c from Category  c order by c.id").getResultList();
+    List resultL = lab02EntityManager.getEntityManager()
+        .createQuery("select c from Category  c order by c.id").getResultList();
     System.out.println("Größe :" + resultL.size());
     List<Category> categories = new ArrayList<>();
 
-
-    for(Iterator i = resultL.iterator();i.hasNext();){
+    for (Iterator i = resultL.iterator(); i.hasNext(); ) {
       categories.add((Category) i.next());
     }
     System.out.println("Größe :" + categories.size());
-    for (int i = 0; i < categories.size(); i++){
-      System.out.println(categories.get(i).getID()+" "+categories.get(i).getName());
+    for (int i = 0; i < categories.size(); i++) {
+      System.out.println(categories.get(i).getID() + " " + categories.get(i).getName());
     }
 
     boolean exists = false;
     System.out.println("Give the ID of category (-1 to stop)");
     int id = sc.nextInt();
-    while (id==-1)
-    {
+    while (id == -1) {
       System.out.println("You have to choice 2 categories ");
       id = sc.nextInt();
     }
     while (id != -1) {
 
-      for(int j = 0; j < categories.size(); j++){
-        if(categories.get(j).getID() == id){
+      for (int j = 0; j < categories.size(); j++) {
+        if (categories.get(j).getID() == id) {
           exists = true;
           mycategories.add(categories.get(j));
           break;
         }
       }
-      if(exists == false){
+      if (exists == false) {
         System.out.println("Give the right ID");
       }
       System.out.println("Give the ID of category (-1 to stop)");
       id = sc.nextInt();
       exists = false;
-      if(id==-1 && mycategories.size()<2){
+      if (id == -1 && mycategories.size() < 2) {
         System.out.println("You need to choice one more category");
         id = sc.nextInt();
       }
     }
     System.out.println("Give the number of questions per category.");
     int count = sc.nextInt();
+    System.out.println("Anzahl der Fragen von :" +mycategories.get(0).getName() + mycategories.get(0).getQuestionList().size());
     return this.getQuestions(mycategories, count);
   }
 
   @Override
   public Object createGame(Object player, List<?> questions) {
-
+      ArrayList<Question> qu = new ArrayList<>();
+      qu = (ArrayList<Question>) questions;
   /*  Map<Question, Integer> myMap = new HashMap<>();
 
     for (int i = 0; i < questions.size(); i++){
       myMap.put((Question) questions.get(i),0);
     }*/
-    return new Game((Player) player, (ArrayList<Question>) questions);
+    return new Game((Player) player,qu);
 
   }
 
@@ -180,22 +176,21 @@ public class GameManager extends Lab03Game {
     int low = 1;
     int high = 4;
 
-    for(int i = 0 ; i < g.getPlayedQuestions().size() ; i++){
+    for (int i = 0; i < g.getPlayedQuestions().size(); i++) {
 
-        Question currentQuestion = g.getPlayedQuestions().get(i);
+      Question currentQuestion = g.getPlayedQuestions().get(i);
 
-         // int random = (int) (Math.random()*4)+1;
-        Answer givenAnswer = currentQuestion.getMyAnswerList().get(rand.nextInt(4));
+      // int random = (int) (Math.random()*4)+1;
+      Answer givenAnswer = currentQuestion.getMyAnswerList().get(rand.nextInt(4));
 
-        if(givenAnswer.getCorrectAnswer()){
+      if (givenAnswer.getCorrectAnswer()) {
 
-          g.getGivenAnswers().put(currentQuestion,true);
-        }
-        else{
+        g.getGivenAnswers().put(currentQuestion, true);
+      } else {
 
-          g.getGivenAnswers().put(currentQuestion,false);
+        g.getGivenAnswers().put(currentQuestion, false);
 
-        }
+      }
 
     }
     g.setTimestamp_end(new Date());
@@ -209,29 +204,27 @@ public class GameManager extends Lab03Game {
     Date start = new Date();
     g.setTimestamp_start(start);
 
-
-    for(int i = 0 ; i < g.getPlayedQuestions().size() ; i++){
+    for (int i = 0; i < g.getPlayedQuestions().size(); i++) {
 
       Question currentQuestion = g.getPlayedQuestions().get(i);
 
       System.out.println("Question: " + currentQuestion.getText());
 
-      for(int j = 0 ; j < currentQuestion.getMyAnswerList().size() ; j++){
+      for (int j = 0; j < currentQuestion.getMyAnswerList().size(); j++) {
         Answer currentAnswer = currentQuestion.getMyAnswerList().get(j);
-        System.out.println("Answer " + j+1 +": " + currentAnswer.getText());
+        System.out.println("Answer " + j + 1 + ": " + currentAnswer.getText());
 
       }
       System.out.println("Whats your answer? : ");
       int answer = sc.nextInt();
 
-      if(currentQuestion.getMyAnswerList().get(answer-1).getCorrectAnswer()){
+      if (currentQuestion.getMyAnswerList().get(answer - 1).getCorrectAnswer()) {
 
-        g.getGivenAnswers().put(currentQuestion,true);
+        g.getGivenAnswers().put(currentQuestion, true);
         System.out.println("Correct Answer!");
-      }
-      else{
+      } else {
 
-        g.getGivenAnswers().put(currentQuestion,false);
+        g.getGivenAnswers().put(currentQuestion, false);
         System.out.println("Wrong Answer!");
 
       }
@@ -250,7 +243,7 @@ public class GameManager extends Lab03Game {
 
     Game g = (Game) game;
     em.persist(g);
-    em.persist(g.getPlayer());
+   // em.persist(g.getPlayer());
     em.getTransaction().commit();
     em.close();
 

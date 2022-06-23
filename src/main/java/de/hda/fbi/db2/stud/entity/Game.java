@@ -40,9 +40,8 @@ public class Game {
 
   public Game(Player player , ArrayList<Question> playedQuestions){
     this.player = player;
-    this.playedQuestions = playedQuestions;
     this.givenAnswers = new HashMap<>();
-    this.playedQuestions = new ArrayList<>();
+    this.playedQuestions = playedQuestions;
   }
 
   public Game() {
