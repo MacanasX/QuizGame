@@ -18,11 +18,11 @@ public class GameManager extends Lab03Game {
 
   private Random rand = new Random();
   private Scanner sc = new Scanner(System.in, StandardCharsets.UTF_8);
+  private boolean playerExist;
 
   @Override
   public Object getOrCreatePlayer(String playerName) {
 
-    ;
     //  Player result = (Player) lab02EntityManager.getEntityManager().createNamedQuery("player.findByName").
     //     setParameter("playername",playerName).getSingleResult();
     try {
@@ -59,9 +59,11 @@ public class GameManager extends Lab03Game {
               "select m from Player m where m.playerName= :username").setParameter("username", username)
           .getSingleResult();
       System.out.println("Result: " + result);
+      playerExist = true;
       return result;
 
     } catch (NoResultException e) {
+      playerExist = false;
       return new Player(username);
 
     }
@@ -111,22 +113,21 @@ public class GameManager extends Lab03Game {
 
     List resultL = lab02EntityManager.getEntityManager()
         .createQuery("select c from Category  c order by c.id").getResultList();
-    System.out.println("Größe :" + resultL.size());
     List<Category> categories = new ArrayList<>();
 
     for (Iterator i = resultL.iterator(); i.hasNext(); ) {
       categories.add((Category) i.next());
     }
-    System.out.println("Größe :" + categories.size());
+
     for (int i = 0; i < categories.size(); i++) {
       System.out.println(categories.get(i).getID() + " " + categories.get(i).getName());
     }
 
     boolean exists = false;
-    System.out.println("Give the ID of category (-1 to stop)");
+    System.out.println("Please enter the ID of your Category (-1 When you are done with selection)");
     int id = sc.nextInt();
     while (id == -1) {
-      System.out.println("You have to choice 2 categories ");
+      System.out.println("You have to choose at least 2 Categories");
       id = sc.nextInt();
     }
     while (id != -1) {
@@ -139,19 +140,19 @@ public class GameManager extends Lab03Game {
         }
       }
       if (exists == false) {
-        System.out.println("Give the right ID");
+        System.out.println("The entered ID does not exist");
       }
-      System.out.println("Give the ID of category (-1 to stop)");
+      System.out.println("Please enter the ID of your Category (-1 When you are done with selection)");
       id = sc.nextInt();
       exists = false;
       if (id == -1 && mycategories.size() < 2) {
-        System.out.println("You need to choice one more category");
+        System.out.println("You have to choose one more Category");
         id = sc.nextInt();
       }
     }
-    System.out.println("Give the number of questions per category.");
+    System.out.println("Please enter the amount of Questions per Category (1-4)");
     int count = sc.nextInt();
-    System.out.println("Anzahl der Fragen von :" +mycategories.get(0).getName() + mycategories.get(0).getQuestionList().size());
+    //System.out.println("Anzahl der Fragen von :" +mycategories.get(0).getName() + mycategories.get(0).getQuestionList().size());
     return this.getQuestions(mycategories, count);
   }
 
@@ -210,9 +211,9 @@ public class GameManager extends Lab03Game {
 
       System.out.println("Question: " + currentQuestion.getText());
 
-      for (int j = 0; j < currentQuestion.getMyAnswerList().size(); j++) {
-        Answer currentAnswer = currentQuestion.getMyAnswerList().get(j);
-        System.out.println("Answer " + j + 1 + ": " + currentAnswer.getText());
+      for (int j = 1; j < currentQuestion.getMyAnswerList().size()+1; j++) {
+        Answer currentAnswer = currentQuestion.getMyAnswerList().get(j-1);
+        System.out.println("Answer " + j + ": " + currentAnswer.getText());
 
       }
       System.out.println("Whats your answer? : ");
@@ -243,7 +244,9 @@ public class GameManager extends Lab03Game {
 
     Game g = (Game) game;
     em.persist(g);
-   // em.persist(g.getPlayer());
+    if(!playerExist) {
+      em.persist(g.getPlayer());
+    }
     em.getTransaction().commit();
     em.close();
 

@@ -102,7 +102,7 @@ public abstract class Lab03Game {
   /**
    * This function shall generate a random list of questions after asking the user for categories.
    *
-   * <p>In this function, ask the user for categories and the number of questions per category.
+   * <p>In this function, ask the user for categories and ggory.
    * Then, randomly select questions from those categories. Choose as many questions per category as
    * were entered, as long as the category has that many questions. If there are fewer questions,
    * then select all of them.</p>
