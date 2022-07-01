@@ -21,7 +21,10 @@ public class Player {
 
   @Id
   private String playerName;
-  @OneToMany(mappedBy = "player")
+
+
+
+    @OneToMany(mappedBy = "player") //, cascade = CascadeType.PERSIST
   private ArrayList<Game> playedGames;
 
   public Player(String playerName){
@@ -30,6 +33,14 @@ public class Player {
    playedGames = new ArrayList<>();
 
   }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public ArrayList<Game> getPlayedGames() {
+        return playedGames;
+    }
 
 
   public Player() {

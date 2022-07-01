@@ -244,11 +244,11 @@ public class GameManager extends Lab03Game {
 
     Game g = (Game) game;
     em.persist(g);
-    if(!playerExist) {
-      em.persist(g.getPlayer());
-    }
+   // if(!playerExist) {
+      em.merge(g.getPlayer());
+    //}
     em.getTransaction().commit();
-    em.close();
+   // em.close();
 
 
   }
