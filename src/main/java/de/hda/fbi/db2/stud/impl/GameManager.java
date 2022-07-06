@@ -91,6 +91,11 @@ public class GameManager extends Lab03Game {
         for (int j = 0; j < amountOfQuestionsForCategory; j++) {
 
           random = rand.nextInt(((category.getQuestionList().size() - 1)));
+          if(myQuestion.contains(category.getQuestionList().get(random))){
+
+            j--;
+            continue;
+          }
           myQuestion.add(category.getQuestionList().get(random));
 
         }

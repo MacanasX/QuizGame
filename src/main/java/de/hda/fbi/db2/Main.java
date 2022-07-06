@@ -24,7 +24,7 @@ public class Main {
    // controller.readCsv();
 
     //TODO(stud): uncomment for lab02
-    //controller.persistData();
+    controller.persistData();
 
     //TODO(stud): uncomment for lab03, lab04 and lab05
     controller.startMenu();

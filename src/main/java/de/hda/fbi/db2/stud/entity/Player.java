@@ -14,7 +14,12 @@ import javax.persistence.Table;
 @Table (name = "Player")
 @NamedQueries({
     @NamedQuery(name ="player.findByName",
-                query = "SELECT m FROM Player m WHERE m.playerName=:playername")})
+                query = "SELECT m FROM Player m WHERE m.playerName=:playername"),
+    @NamedQuery(name = "Player.count",
+        query = "select count (p) from Player p")})
+
+
+
 
 public class Player {
 
@@ -24,7 +29,7 @@ public class Player {
 
 
 
-    @OneToMany(mappedBy = "player") //, cascade = CascadeType.PERSIST
+    @OneToMany(mappedBy = "player", cascade = CascadeType.PERSIST)
   private ArrayList<Game> playedGames;
 
   public Player(String playerName){

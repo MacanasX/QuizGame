@@ -13,12 +13,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table
+@NamedQueries({
+    @NamedQuery(name = "Game.count",
+        query = "SELECT COUNT(g) FROM Game g"),
+    })
+
+//@NamedQuery(name = "PlayedQuestions.count",
+//        query = "select count (g) from Game g join g.givenAnswers")
+
+
+
 public class Game {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,8 +41,10 @@ public class Game {
   private Date timestamp_start;
   @Temporal(TemporalType.TIMESTAMP)
   private Date  timestamp_end;
-  @ManyToMany
+  /*@ManyToMany
   private ArrayList<Category> playedCategories;
+  */
+
   @ManyToMany
   private ArrayList<Question> playedQuestions;
   @ElementCollection
@@ -80,23 +94,23 @@ public class Game {
   public void setTimestamp_end(Date timestamp_end) {
     this.timestamp_end = timestamp_end;
   }
+  /*
+   public ArrayList<Category> getPlayedCategories() {
+     return playedCategories;
+   }
 
-  public ArrayList<Category> getPlayedCategories() {
-    return playedCategories;
-  }
+   public void setPlayedCategories(
+       ArrayList<Category> playedCategories) {
+     this.playedCategories = playedCategories;
+   }
+   */
+     public ArrayList<Question> getPlayedQuestions() {
+       return playedQuestions;
+     }
 
-  public void setPlayedCategories(
-      ArrayList<Category> playedCategories) {
-    this.playedCategories = playedCategories;
-  }
-
-  public ArrayList<Question> getPlayedQuestions() {
-    return playedQuestions;
-  }
-
-  public void setPlayedQuestions(ArrayList<Question> playedQuestions) {
-    this.playedQuestions = playedQuestions;
-  }
+     public void setPlayedQuestions(ArrayList<Question> playedQuestions) {
+       this.playedQuestions = playedQuestions;
+     }
 
   public Map<Question, Boolean> getGivenAnswers() {
     return givenAnswers;
