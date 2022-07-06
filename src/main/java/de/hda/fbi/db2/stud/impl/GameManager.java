@@ -1,10 +1,12 @@
 package de.hda.fbi.db2.stud.impl;
 
-import de.hda.fbi.db2.api.Lab02EntityManager;
 import de.hda.fbi.db2.api.Lab03Game;
-import de.hda.fbi.db2.stud.entity.*;
+import de.hda.fbi.db2.stud.entity.Question;
+import de.hda.fbi.db2.stud.entity.Category;
+import de.hda.fbi.db2.stud.entity.Player;
+import de.hda.fbi.db2.stud.entity.Game;
+import de.hda.fbi.db2.stud.entity.Answer;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -23,8 +25,6 @@ public class GameManager extends Lab03Game {
   @Override
   public Object getOrCreatePlayer(String playerName) {
 
-    //  Player result = (Player) lab02EntityManager.getEntityManager().createNamedQuery("player.findByName").
-    //     setParameter("playername",playerName).getSingleResult();
     try {
       Player result = (Player) lab02EntityManager.getEntityManager().createQuery(
               "select m from Player m where m.playerName= :username")
@@ -36,14 +36,7 @@ public class GameManager extends Lab03Game {
       return new Player(playerName);
 
     }
-   /* if (result != null)
-      return result;
-    else {
 
-      Player player = new Player(playerName);
-      return player;
-    }
-  */
 
   }
 
@@ -56,7 +49,8 @@ public class GameManager extends Lab03Game {
     System.out.println("Username:" + username);
     try {
       Player result = (Player) em.createQuery(
-              "select m from Player m where m.playerName= :username").setParameter("username", username)
+              "select m from Player m where m.playerName= :username")
+          .setParameter("username", username)
           .getSingleResult();
       System.out.println("Result: " + result);
       playerExist = true;
@@ -67,14 +61,7 @@ public class GameManager extends Lab03Game {
       return new Player(username);
 
     }
-  /*  if (result != null) {
-      System.out.println("Welcome Back " + username + "!");
 
-    } else {
-       System.out.println("New Player got created!");
-
-    }
-    */
   }
 
   @Override
@@ -91,7 +78,7 @@ public class GameManager extends Lab03Game {
         for (int j = 0; j < amountOfQuestionsForCategory; j++) {
 
           random = rand.nextInt(((category.getQuestionList().size() - 1)));
-          if(myQuestion.contains(category.getQuestionList().get(random))){
+          if (myQuestion.contains(category.getQuestionList().get(random))) {
 
             j--;
             continue;
@@ -129,7 +116,8 @@ public class GameManager extends Lab03Game {
     }
 
     boolean exists = false;
-    System.out.println("Please enter the ID of your Category (-1 When you are done with selection)");
+    System.out.println(
+        "Please enter the ID of your Category (-1 When you are done with selection)");
     int id = sc.nextInt();
     while (id == -1) {
       System.out.println("You have to choose at least 2 Categories");
@@ -147,7 +135,8 @@ public class GameManager extends Lab03Game {
       if (exists == false) {
         System.out.println("The entered ID does not exist");
       }
-      System.out.println("Please enter the ID of your Category (-1 When you are done with selection)");
+      System.out.println(
+          "Please enter the ID of your Category (-1 When you are done with selection)");
       id = sc.nextInt();
       exists = false;
       if (id == -1 && mycategories.size() < 2) {
@@ -157,20 +146,16 @@ public class GameManager extends Lab03Game {
     }
     System.out.println("Please enter the amount of Questions per Category (1-4)");
     int count = sc.nextInt();
-    //System.out.println("Anzahl der Fragen von :" +mycategories.get(0).getName() + mycategories.get(0).getQuestionList().size());
+
     return this.getQuestions(mycategories, count);
   }
 
   @Override
   public Object createGame(Object player, List<?> questions) {
-      ArrayList<Question> qu = new ArrayList<>();
-      qu = (ArrayList<Question>) questions;
-  /*  Map<Question, Integer> myMap = new HashMap<>();
+    ArrayList<Question> qu = new ArrayList<>();
+    qu = (ArrayList<Question>) questions;
 
-    for (int i = 0; i < questions.size(); i++){
-      myMap.put((Question) questions.get(i),0);
-    }*/
-    return new Game((Player) player,qu);
+    return new Game((Player) player, qu);
 
   }
 
@@ -178,7 +163,7 @@ public class GameManager extends Lab03Game {
   public void playGame(Object game) {
     Game g = (Game) game;
     Date start = new Date();
-    g.setTimestamp_start(start);
+    g.setTimestampStart(start);
     int low = 1;
     int high = 4;
 
@@ -186,7 +171,6 @@ public class GameManager extends Lab03Game {
 
       Question currentQuestion = g.getPlayedQuestions().get(i);
 
-      // int random = (int) (Math.random()*4)+1;
       Answer givenAnswer = currentQuestion.getMyAnswerList().get(rand.nextInt(4));
 
       if (givenAnswer.getCorrectAnswer()) {
@@ -199,7 +183,7 @@ public class GameManager extends Lab03Game {
       }
 
     }
-    g.setTimestamp_end(new Date());
+    g.setTimestampEnd(new Date());
 
   }
 
@@ -208,7 +192,7 @@ public class GameManager extends Lab03Game {
 
     Game g = (Game) game;
     Date start = new Date();
-    g.setTimestamp_start(start);
+    g.setTimestampStart(start);
 
     for (int i = 0; i < g.getPlayedQuestions().size(); i++) {
 
@@ -216,8 +200,8 @@ public class GameManager extends Lab03Game {
 
       System.out.println("Question: " + currentQuestion.getText());
 
-      for (int j = 1; j < currentQuestion.getMyAnswerList().size()+1; j++) {
-        Answer currentAnswer = currentQuestion.getMyAnswerList().get(j-1);
+      for (int j = 1; j < currentQuestion.getMyAnswerList().size() + 1; j++) {
+        Answer currentAnswer = currentQuestion.getMyAnswerList().get(j - 1);
         System.out.println("Answer " + j + ": " + currentAnswer.getText());
 
       }
@@ -236,7 +220,7 @@ public class GameManager extends Lab03Game {
       }
 
     }
-    g.setTimestamp_end(new Date());
+    g.setTimestampEnd(new Date());
 
 
   }
@@ -249,11 +233,10 @@ public class GameManager extends Lab03Game {
 
     Game g = (Game) game;
     em.persist(g);
-   // if(!playerExist) {
-      em.merge(g.getPlayer());
-    //}
+
+    em.merge(g.getPlayer());
+
     em.getTransaction().commit();
-   // em.close();
 
 
   }

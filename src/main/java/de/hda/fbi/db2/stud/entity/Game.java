@@ -1,6 +1,5 @@
 package de.hda.fbi.db2.stud.entity;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,23 +23,22 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Game.count",
         query = "SELECT COUNT(g) FROM Game g"),
-    })
+})
 
 //@NamedQuery(name = "PlayedQuestions.count",
 //        query = "select count (g) from Game g join g.givenAnswers")
 
-
-
 public class Game {
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private long id ;
+  private long id;
   @Column
   private int score;
   @Temporal(TemporalType.TIMESTAMP)
-  private Date timestamp_start;
+  private Date timestampStart;
   @Temporal(TemporalType.TIMESTAMP)
-  private Date  timestamp_end;
+  private Date timestampEnd;
   /*@ManyToMany
   private ArrayList<Category> playedCategories;
   */
@@ -48,11 +46,16 @@ public class Game {
   @ManyToMany
   private ArrayList<Question> playedQuestions;
   @ElementCollection
-  private Map<Question,Boolean> givenAnswers;
+  private Map<Question, Boolean> givenAnswers;
   @ManyToOne
   private Player player;
 
-  public Game(Player player , ArrayList<Question> playedQuestions){
+  /**
+   *
+   * @param player current Player for the Game
+   * @param playedQuestions questions that get played
+   */
+  public Game(Player player, ArrayList<Question> playedQuestions) {
     this.player = player;
     this.givenAnswers = new HashMap<>();
     this.playedQuestions = playedQuestions;
@@ -79,45 +82,36 @@ public class Game {
     this.score = score;
   }
 
-  public Date getTimestamp_start() {
-    return timestamp_start;
+  public Date getTimestampStart() {
+    return timestampStart;
   }
 
-  public void setTimestamp_start(Date timestamp_start) {
-    this.timestamp_start = timestamp_start;
+  public void setTimestampStart(Date timestampStart) {
+    this.timestampStart = timestampStart;
   }
 
-  public Date getTimestamp_end() {
-    return timestamp_end;
+  public Date getTimestampEnd() {
+    return timestampEnd;
   }
 
-  public void setTimestamp_end(Date timestamp_end) {
-    this.timestamp_end = timestamp_end;
+  public void setTimestampEnd(Date timestampEnd) {
+    this.timestampEnd = timestampEnd;
   }
-  /*
-   public ArrayList<Category> getPlayedCategories() {
-     return playedCategories;
-   }
 
-   public void setPlayedCategories(
-       ArrayList<Category> playedCategories) {
-     this.playedCategories = playedCategories;
-   }
-   */
-     public ArrayList<Question> getPlayedQuestions() {
-       return playedQuestions;
-     }
+  public ArrayList<Question> getPlayedQuestions() {
+    return playedQuestions;
+  }
 
-     public void setPlayedQuestions(ArrayList<Question> playedQuestions) {
-       this.playedQuestions = playedQuestions;
-     }
+  public void setPlayedQuestions(ArrayList<Question> playedQuestions) {
+    this.playedQuestions = playedQuestions;
+  }
 
   public Map<Question, Boolean> getGivenAnswers() {
     return givenAnswers;
   }
 
   public void setGivenAnswers(
-    Map<Question, Boolean> givenAnswers) {
+      Map<Question, Boolean> givenAnswers) {
     this.givenAnswers = givenAnswers;
   }
 

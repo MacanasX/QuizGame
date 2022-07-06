@@ -11,15 +11,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table (name = "Player")
+@Table(name = "Player")
 @NamedQueries({
-    @NamedQuery(name ="player.findByName",
-                query = "SELECT m FROM Player m WHERE m.playerName=:playername"),
+    @NamedQuery(name = "player.findByName",
+        query = "SELECT m FROM Player m WHERE m.playerName=:playername"),
     @NamedQuery(name = "Player.count",
         query = "select count (p) from Player p")})
-
-
-
 
 public class Player {
 
@@ -28,24 +25,27 @@ public class Player {
   private String playerName;
 
 
-
-    @OneToMany(mappedBy = "player", cascade = CascadeType.PERSIST)
+  @OneToMany(mappedBy = "player", cascade = CascadeType.PERSIST)
   private ArrayList<Game> playedGames;
 
-  public Player(String playerName){
+  /**
+   *
+   * @param playerName Name for the Player
+   */
+  public Player(String playerName) {
 
-   this.playerName = playerName;
-   playedGames = new ArrayList<>();
+    this.playerName = playerName;
+    playedGames = new ArrayList<>();
 
   }
 
-    public String getPlayerName() {
-        return playerName;
-    }
+  public String getPlayerName() {
+    return playerName;
+  }
 
-    public ArrayList<Game> getPlayedGames() {
-        return playedGames;
-    }
+  public ArrayList<Game> getPlayedGames() {
+    return playedGames;
+  }
 
 
   public Player() {
