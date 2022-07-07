@@ -164,6 +164,7 @@ public class GameManager extends Lab03Game {
     Game g = (Game) game;
     Date start = new Date();
     g.setTimestampStart(start);
+    int score = 0;
     int low = 1;
     int high = 4;
 
@@ -176,6 +177,7 @@ public class GameManager extends Lab03Game {
       if (givenAnswer.getCorrectAnswer()) {
 
         g.getGivenAnswers().put(currentQuestion, true);
+        score++;
       } else {
 
         g.getGivenAnswers().put(currentQuestion, false);
@@ -183,6 +185,7 @@ public class GameManager extends Lab03Game {
       }
 
     }
+    g.setScore(score);
     g.setTimestampEnd(new Date());
 
   }

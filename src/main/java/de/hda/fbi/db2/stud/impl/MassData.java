@@ -33,9 +33,9 @@ public class MassData extends Lab04MassData {
 
     System.out.println("SIZE" + resultL.size());
     em.getTransaction().begin();
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 10; i++) {
       Player p = (Player) lab03Game.getOrCreatePlayer(
-          generateRandomPlayer()); //(Player) this.lab03Game.getOrCreatePlayer(playerName);
+          generateRandomPlayer());
       em.persist(p);
 
       for (int j = 0; j < 100; j++) {
@@ -44,17 +44,18 @@ public class MassData extends Lab04MassData {
             rand.nextInt(11) + 10);
         // System.out.println("fragen: " + q.size());
         Game currentGame = (Game) lab03Game.createGame(p, q);
+
+        lab03Game.playGame(currentGame);
         Date time = getTimeStamp();
         currentGame.setTimestampStart(time);
         currentGame.setTimestampEnd(time);
-        lab03Game.playGame(currentGame);
 
         em.persist(currentGame);
         //
 
       }
 
-      if (i % 10 == 0 && i > 0) {
+      if ((i % 10 == 0) && (i > 0)) {
         em.flush();
         em.clear();
       }
@@ -112,7 +113,8 @@ public class MassData extends Lab04MassData {
   private Date getTimeStamp() {
 
     Calendar timestamp = Calendar.getInstance();
-    timestamp.add(Calendar.DATE, -rand.nextInt(20));
+    timestamp.add(Calendar.DATE, rand.nextInt(14));
+    System.out.println(timestamp.getTime());
     return timestamp.getTime();
   }
 
