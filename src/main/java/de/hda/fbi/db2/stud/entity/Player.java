@@ -29,6 +29,7 @@ public class Player {
   private ArrayList<Game> playedGames;
 
   /**
+   *Constructor for the Player-Class.
    *
    * @param playerName Name for the Player
    */

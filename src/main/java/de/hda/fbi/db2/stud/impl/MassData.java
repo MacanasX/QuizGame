@@ -1,20 +1,14 @@
 package de.hda.fbi.db2.stud.impl;
 
+
 import de.hda.fbi.db2.api.Lab04MassData;
-
 import de.hda.fbi.db2.stud.entity.Category;
-
 import de.hda.fbi.db2.stud.entity.Game;
-
 import de.hda.fbi.db2.stud.entity.Player;
-
-
 import de.hda.fbi.db2.stud.entity.Question;
-import java.util.ArrayList;
-
-import java.time.temporal.ChronoUnit;
-
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -31,9 +25,7 @@ public class MassData extends Lab04MassData {
   @Override
   public void createMassData() {
 
-    start  = LocalTime.now();
-
-
+    start = LocalTime.now();
 
     em = lab02EntityManager.getEntityManager();
     List resultL = em
@@ -43,19 +35,19 @@ public class MassData extends Lab04MassData {
     em.getTransaction().begin();
     for (int i = 0; i < 100; i++) {
       Player p = (Player) lab03Game.getOrCreatePlayer(
-          "player " + i); //(Player) this.lab03Game.getOrCreatePlayer(playerName);
+          generateRandomPlayer()); //(Player) this.lab03Game.getOrCreatePlayer(playerName);
       em.persist(p);
 
       for (int j = 0; j < 100; j++) {
 
-        ArrayList<Question> q = (ArrayList<Question>) this.questionsToPlay(resultL, 15);
-
+        ArrayList<Question> q = (ArrayList<Question>) this.questionsToPlay(resultL,
+            rand.nextInt(11) + 10);
+        // System.out.println("fragen: " + q.size());
         Game currentGame = (Game) lab03Game.createGame(p, q);
         Date time = getTimeStamp();
         currentGame.setTimestampStart(time);
         currentGame.setTimestampEnd(time);
         lab03Game.playGame(currentGame);
-
 
         em.persist(currentGame);
         //
@@ -83,11 +75,11 @@ public class MassData extends Lab04MassData {
 
     System.out.println("Number of Players:" + playerCount);
     System.out.println("Number of played games: " + gameCount);
-
+    System.out.println("Played questions : " + (long) em.createNamedQuery("PlayedQuestions.count")
+        .getSingleResult());
     em.close();
 
   }
-
 
 
   private List<Question> questionsToPlay(List<Category> categories, int maxQuestions) {
@@ -105,6 +97,9 @@ public class MassData extends Lab04MassData {
           myQuestions.add(currenQuestion);
           break;
         }
+        if (j == currentCategory.getQuestionList().size() - 1) {
+          i--;
+        }
 
 
       }
@@ -121,7 +116,22 @@ public class MassData extends Lab04MassData {
     return timestamp.getTime();
   }
 
+  /**
+   * Generates Random Player Name for the Game.
+   * @return RandomPlayername
+   */
+  public String generateRandomPlayer() {
+    String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijk"
+        + "lmnopqrstuvwxyz";
 
+    StringBuilder sb = new StringBuilder(12);
+    for (int i = 0; i < 12; i++) {
+      sb.append(chars.charAt(rand.nextInt(chars.length())));
+    }
+    return sb.toString();
+  }
 }
+
+
 
 

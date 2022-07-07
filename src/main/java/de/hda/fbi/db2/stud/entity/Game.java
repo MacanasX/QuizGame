@@ -23,10 +23,11 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Game.count",
         query = "SELECT COUNT(g) FROM Game g"),
+    @NamedQuery(name = "PlayedQuestions.count",
+        query = "select count (g.givenAnswers) from Game g ")
 })
 
-//@NamedQuery(name = "PlayedQuestions.count",
-//        query = "select count (g) from Game g join g.givenAnswers")
+
 
 public class Game {
 
@@ -51,6 +52,7 @@ public class Game {
   private Player player;
 
   /**
+   * Constructor for the Game-Class.
    *
    * @param player current Player for the Game
    * @param playedQuestions questions that get played
