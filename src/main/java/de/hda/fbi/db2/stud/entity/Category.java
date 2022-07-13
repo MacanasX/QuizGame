@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -15,6 +17,18 @@ import javax.sound.midi.Sequence;
 
 @Entity
 @Table (name = "Category")
+@NamedQueries({
+@NamedQuery(name = "Category.mostPlayed",
+   query = "select c.name, count(c) as counter "
+       + "from Question q join Game g join g.playedQuestions pq join Category c "
+       + "where q.category = c and pq.id = q.id "
+       + "group by c.id "
+      + "order by counter desc ")})
+
+
+
+
+
 public class Category {
 
 

@@ -24,7 +24,12 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Game.count",
         query = "SELECT COUNT(g) FROM Game g"),
     @NamedQuery(name = "PlayedQuestions.count",
-        query = "select count (g.givenAnswers) from Game g ")
+        query = "select count (g.givenAnswers) from Game g "),
+
+    @NamedQuery(name = "specificPlayer.allGames",
+        query = "select g.id, g.timestampStart, g.score , count (g.id)   from Game g, g.playedQuestions gp where g.player.playerName=:playerName"
+            + " group by g.id"
+              + " order by g.id desc")
 })
 
 

@@ -6,6 +6,7 @@ import de.hda.fbi.db2.stud.entity.Category;
 import de.hda.fbi.db2.stud.entity.Game;
 import de.hda.fbi.db2.stud.entity.Player;
 import de.hda.fbi.db2.stud.entity.Question;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class MassData extends Lab04MassData {
 
     System.out.println("SIZE" + resultL.size());
     em.getTransaction().begin();
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 2000; i++) {
       Player p = (Player) lab03Game.getOrCreatePlayer(
           generateRandomPlayer());
       em.persist(p);
@@ -46,7 +47,9 @@ public class MassData extends Lab04MassData {
         Game currentGame = (Game) lab03Game.createGame(p, q);
 
         lab03Game.playGame(currentGame);
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date time = getTimeStamp();
+
         currentGame.setTimestampStart(time);
         currentGame.setTimestampEnd(time);
 

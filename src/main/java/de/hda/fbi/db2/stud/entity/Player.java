@@ -16,7 +16,16 @@ import javax.persistence.Table;
     @NamedQuery(name = "player.findByName",
         query = "SELECT m FROM Player m WHERE m.playerName=:playername"),
     @NamedQuery(name = "Player.count",
-        query = "select count (p) from Player p")})
+        query = "select count (p) from Player p"),
+    @NamedQuery(name = "Player.playerFromDateToDate",
+        query = "select distinct g.player.playerName "
+            + "from Game g where g.timestampStart >= :startDate and g.timestampEnd <= :endDate"),
+    @NamedQuery(name = "Player.playedGames",
+        query = "select p.playerName, count(p) as playcount from Game g join g.player p group by p "
+            + "order by playcount desc")
+
+
+})
 
 public class Player {
 
