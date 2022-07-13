@@ -16,18 +16,14 @@ import javax.persistence.Table;
 import javax.sound.midi.Sequence;
 
 @Entity
-@Table (name = "Category")
+@Table(name = "Category")
 @NamedQueries({
-@NamedQuery(name = "Category.mostPlayed",
-   query = "select c.name, count(c) as counter "
-       + "from Question q join Game g join g.playedQuestions pq join Category c "
-       + "where q.category = c and pq.id = q.id "
-       + "group by c.id "
-      + "order by counter desc ")})
-
-
-
-
+    @NamedQuery(name = "Category.mostPlayed",
+        query = "select c.name, count(c) as counter "
+            + "from Question q join Game g join g.playedQuestions pq join Category c "
+            + "where q.category = c and pq.id = q.id "
+            + "group by c.id "
+            + "order by counter desc ")})
 
 public class Category {
 
@@ -35,13 +31,14 @@ public class Category {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
-  @Column (unique = true)
+  @Column(unique = true)
   private String name;
 
   @OneToMany(mappedBy = "category")
   private ArrayList<Question> questionList;
 
-  /** Constructor of the class Category.
+  /**
+   * Constructor of the class Category.
    *
    * @param text string which holds the category of the object
    */

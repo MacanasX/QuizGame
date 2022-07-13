@@ -81,11 +81,11 @@ public class MenuController {
 
   private void analyzeData() throws ParseException {
     String userInput;
-    String userInputDateStart ;
-    String userInputDateEnd ;
+    String userInputDateStart;
+    String userInputDateEnd;
     Boolean exit = false;
     EntityManager em = controller.getLab02EntityManager().getEntityManager();
-    while(!exit) {
+    while (!exit) {
       System.out.println("Data Analyze");
       System.out.println("1. Search for a Player in a specific timerange ");
       System.out.println("2. All Games for a specific player ");
@@ -112,8 +112,8 @@ public class MenuController {
           List result2 = query.getResultList();
 
           for (Iterator i = result2.iterator(); i.hasNext(); ) {
-           // Object[] element = (Object[]) i.next();
-            System.out.println("Player that played at the time: " + (String)i.next());
+            // Object[] element = (Object[]) i.next();
+            System.out.println("Player that played at the time: " + (String) i.next());
           }
 
           break;
@@ -126,15 +126,14 @@ public class MenuController {
 
           List resultset3 = query2.getResultList();
 
-
           for (Iterator i = resultset3.iterator(); i.hasNext(); ) {
             Object[] element = (Object[]) i.next();
 
-
             System.out.println(
-                "Player " +userInput + " played following Game: " + (long) element[0] + " -> " + " Date: "
-                    + (Date) element[1] + " -> " +
-                    " Score " + (int) element[2] + " -> " + " Number of Questions for Game "
+                "Player " + userInput + " played following Game: " + (long) element[0] + " -> "
+                    + " Date: "
+                    + (Date) element[1] + " -> "
+                    + " Score " + (int) element[2] + " -> " + " Number of Questions for Game "
                     + (long) element[3]);
           }
 
@@ -146,9 +145,9 @@ public class MenuController {
 
           for (Iterator i = resultL.iterator(); i.hasNext(); ) {
             Object[] element = (Object[]) i.next();
-           // Player player = (Player) element[0];
+            // Player player = (Player) element[0];
             System.out.println(
-                "Player-Name: " +(String)element[0] + " Played Games:  " + (Long) element[1]);
+                "Player-Name: " + (String) element[0] + " Played Games:  " + (Long) element[1]);
           }
           break;
         case "4":
@@ -169,7 +168,7 @@ public class MenuController {
           break;
         case "5":
           em.close();
-          exit=true;
+          exit = true;
           break;
 
         default:
